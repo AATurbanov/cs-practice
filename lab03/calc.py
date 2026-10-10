@@ -5,6 +5,15 @@ sum_ = n1 + n2
 subt = n1 - n2
 mul = n1 * n2
 
+
 print(f'{n1} + {n2} = {sum_}')
 print(f'{n1} - {n2} = {subt}')
 print(f'{n1} * {n2} = {mul}')
+
+if n2 != 0:
+    div = n1 / n2
+    print(f'{n1} / {n2} = {div}')
+
+else:
+    print('error: /0')
+
