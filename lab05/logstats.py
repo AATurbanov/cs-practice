@@ -71,13 +71,14 @@ def top_errors(lines: list[str], n: int) -> list[list]:
 
 
 def format_report(counts: dict, errors: list[list]) -> str:
-    report = 'Отчёт по журналу \n'
+    report = 'Отчёт по журналу\n\n'
     for level in sorted(counts):
         report += f'{level}: {counts[level]}\n'
 
-    report += '\n Частые ошибки:\n'
+    report += '\nЧастые ошибки:\n'
     for error, count in errors:
         report += f'- {error.strip()} — {count}\n'
 
     return report
 
+print(count_levels(["", " ", "2026-03-01T09)"]))
