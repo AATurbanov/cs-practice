@@ -5,7 +5,7 @@ def count_by_extension(paths: list[str]) -> dict[str, int]:
     counts = {}
 
     for path in paths:
-        if '.' not in path:
+        if '.' not in path or path.strip()[0] == '.':
             ext = ''
         else:
             ext = path.split('.')[-1].lower()
@@ -41,3 +41,4 @@ def human_size(n_bytes: int) -> str:
         res = f'{size:.1f} {units[i]}'
 
     return res
+
