@@ -79,4 +79,3 @@ def format_report(counts: dict, errors: list[list]) -> str:
     return report
 
 
-parse_event(" 2026-03-01T09:12:30 W ")
