@@ -1,15 +1,12 @@
-import sys
-
-
 def parse_event(line: str) -> dict:
     parts = line.split(maxsplit=2)
 
     if len(parts) != 3:
         raise ValueError("Invalid string format")
 
-    time = parts[0]
-    level = parts[1]
-    msg = parts[2]
+    time = parts[0].strip()
+    level = parts[1].strip()
+    msg = parts[2].strip()
 
     if not all(('T' in time, '-' in time, ':' in time)):
         raise ValueError("Invalid time format")
@@ -81,4 +78,5 @@ def format_report(counts: dict, errors: list[list]) -> str:
 
     return report
 
-print(count_levels(["", " ", "2026-03-01T09)"]))
+
+parse_event(" 2026-03-01T09:12:30 W ")
