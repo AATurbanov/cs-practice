@@ -1,3 +1,5 @@
+import json
+
 def csv_to_records(text: str) -> list[dict]:
     records = []
     text = text.splitlines()
@@ -66,10 +68,5 @@ def merge_by_key(rows: list[dict], extra: dict, key: str = 'id') -> list[dict]:
     return rows
 
 def records_to_json(records: list[dict]) -> str:
-    json_str = ''
-    for record in records:
-        json_str += str(dict(sorted(record.items())))[1:-1] + '  '
-
-    return json_str
-
+    return json.dumps(records, sort_keys=True, indent=2, ensure_ascii=False)
 
