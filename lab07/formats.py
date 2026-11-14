@@ -7,7 +7,7 @@ def csv_to_records(text: str) -> list[dict]:
         record = {}
 
         for item in line.split(','):
-            record[titles[line.split(',').index(item)]] = item
+            record[titles[line.split(',').index(item)].strip()] = item.strip()
 
         records.append(record)
 
@@ -26,7 +26,7 @@ def parse_settings(lines: list[str]) -> dict:
 
         if len(line.split(':')) == 1 or line.split(':')[1].strip() == '':
             if not line.startswith('- '):
-                key = line
+                key = line.replace(':', '').strip()
                 settings[key] = []
             else:
                 value = line.replace('- ', '')
@@ -59,7 +59,7 @@ def parse_settings(lines: list[str]) -> dict:
 
 def merge_by_key(rows: list[dict], extra: dict, key: str = 'id') -> list[dict]:
     for row in rows:
-        if key in row:
+        if key in row and row[key] in extra.keys():
             value = row[key]
             rows[rows.index(row)] = extra[value] | row
 
@@ -71,3 +71,5 @@ def records_to_json(records: list[dict]) -> str:
         json_str += str(dict(sorted(record.items())))[1:-1] + '  '
 
     return json_str
+
+
