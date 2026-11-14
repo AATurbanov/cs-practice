@@ -3,7 +3,8 @@ import json
 def csv_to_records(text: str) -> list[dict]:
     records = []
     text = text.splitlines()
-    titles = text.pop(0).split(',')
+    if text != []:
+        titles = text.pop(0).split(',')
 
     for line in text:
         record = {}
@@ -18,6 +19,28 @@ def csv_to_records(text: str) -> list[dict]:
 
 # print(csv_to_records("id,город\n1,Азов\n2,Шахты"))
 # # [{"id": "1", "город": "Азов"}, {"id": "2", "город": "Шахты"}]
+def parse_type(value):
+    if value.lower() == 'no' or value.lower() == 'false':
+        value = False
+
+    elif value.lower() == 'yes' or value.lower() == 'true':
+        value = True
+
+    else:
+        if '.' in value or ',' in value:
+            try:
+                value = float(value.replace(',', '.'))
+
+            except ValueError:
+                value = value
+        else:
+            try:
+                value = int(value)
+
+            except ValueError:
+                value = value
+
+    return value
 
 def parse_settings(lines: list[str]) -> dict:
     settings = {}
@@ -32,30 +55,13 @@ def parse_settings(lines: list[str]) -> dict:
                 settings[key] = []
             else:
                 value = line.replace('- ', '')
-                settings[key].append(value)
+                settings[key].append(parse_type(value))
 
         else:
             key, value = (line.split(':'))[0].strip(), (line.split(':')[1]).strip()
+            settings[key] = parse_type(value)
 
-            if value.lower() == 'no' or value.lower() == 'false':
-                settings[key] = False
 
-            elif value.lower() == 'yes' or value.lower() == 'true':
-                settings[key] = True
-
-            else:
-                if '.' in value or ',' in value:
-                    try:
-                        settings[key] = float(value.replace(',', '.'))
-
-                    except ValueError:
-                        settings[key] = value
-                else:
-                    try:
-                        settings[key] = int(value)
-
-                    except ValueError:
-                        settings[key] = value
 
     return settings
 
