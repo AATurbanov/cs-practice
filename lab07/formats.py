@@ -47,9 +47,9 @@ def parse_settings(lines: list[str]) -> dict:
     for line in lines:
         line = line.split('#')[0].strip()
         if line == '' or line == '':
-            continue
+            settings[''] = ""
 
-        if len(line.split(':')) == 1 or line.split(':')[1].strip() == '':
+        elif len(line.split(':')) == 1 or line.split(':')[1].strip() == '':
             if not line.startswith('- '):
                 key = line.replace(':', '').strip()
                 settings[key] = []
@@ -76,3 +76,4 @@ def merge_by_key(rows: list[dict], extra: dict, key: str = 'id') -> list[dict]:
 def records_to_json(records: list[dict]) -> str:
     return json.dumps(records, sort_keys=True, indent=2, ensure_ascii=False)
 
+print(parse_settings([""]))
